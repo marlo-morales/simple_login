@@ -1,0 +1,18 @@
+<%= form_with url: login_path, method: :post, local: true do |form| %>
+  <div class='form__field'>
+    <%= form.text_field :username, value: params[:username], class: 'form__control', required: true %>
+    <span class='form__highlight'></span>
+    <span class='form__bar'></span>
+    <%= form.label :username, class: 'form__label' %>
+  </div>
+  <div class='form__field'>
+    <%= form.password_field :password, class: 'form__control', required: true %>
+    <span class='form__highlight'></span>
+    <span class='form__bar'></span>
+    <%= form.label :password, class: 'form__label' %>
+  </div>
+  <div class='form__actions'>
+    <%= form.submit t('login'), class: 'form__button form__button--primary' %>
+    <%= link_to t('cancel'), root_path, class: 'form__button form_button--secondary' %>
+  </div>
+<% end %>

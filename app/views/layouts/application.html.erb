@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= t('title') %></title>
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_pack_tag 'javascript/application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/css' %>
+  </head>
+
+  <body>
+    <div class='navbar'>
+      <div class='navbar__container'>
+        <div class='navbar__left'>
+          <%= link_to t('home'), root_path, class: 'form__button form__button--secondary no-border' %>
+        </div>
+        <div class='navbar__right'>
+          <% if current_user %>
+            <%= form_with url: logout_path, method: :post, local: true, class: 'no-padding' do |form| %>
+              <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+              <input type='hidden' name='_method' value='delete'>
+              <%= form.submit t('logout'), class: 'form__button form__button--danger' %>
+            <% end %>
+          <% else %>
+            <%= link_to t('login'), login_path, class: 'form__button form__button--primary' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class='container'>
+      <% flash.each do |name, msg| %>
+        <div class='flash_message flash_message__<%= name %>'>
+          <%= msg.html_safe %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
